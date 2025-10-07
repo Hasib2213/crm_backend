@@ -67,17 +67,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'crm_backend.wsgi.application'
 
-'''DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'crm_db2',
-        'USER': 'postgres',
-        'PASSWORD': '1111',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}'''
-
 
 
 # Update database configuration from $DATABASE_URL environment variable
