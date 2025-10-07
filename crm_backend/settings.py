@@ -1,10 +1,14 @@
 import os
 from pathlib import Path
+import dj_database_url
+from dotenv import load_dotenv
+load_dotenv()  # Load environment variables from .env file
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'admin12345'
-DEBUG = True
+SECRET_KEY = os.environ.get('secret_key', 'sct_key')  # Use environment variable for secret key
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = 'core.CustomUser'  # Custom user model
 
@@ -63,7 +67,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'crm_backend.wsgi.application'
 
-DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'crm_db2',
@@ -72,6 +76,13 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     }
+}'''
+
+
+
+# Update database configuration from $DATABASE_URL environment variable
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -115,8 +126,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'hasibulislam2212@gmail.com'
-EMAIL_HOST_PASSWORD = 'fsey roty xyig ziyn'  # use app password, not your normal password
+EMAIL_HOST_USER =os.environ.get('email_user', 'EMAIL_HOST_USER')  # your email address
+EMAIL_HOST_PASSWORD =   os.environ.get('email_password', 'EMAIL_HOST_PASSWORD')  # your email password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
