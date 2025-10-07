@@ -50,7 +50,8 @@ MIDDLEWARE = [
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # React frontend
+    "http://localhost:5173", 
+     "https://crm-frontend-ten-alpha.vercel.app/", # React frontend
 ]
 
 # REST framework JWT
