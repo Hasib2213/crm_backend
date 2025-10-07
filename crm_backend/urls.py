@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.http import HttpResponseRedirect
-from django.http import HttpResponse
+
 
 
 # def redirect_to_frontend(request):
@@ -11,7 +11,7 @@ from django.http import HttpResponse
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('core.urls')),
-    path('', lambda r: HttpResponse("Backend is working!"), name='home'),
+   
    # path('', redirect_to_frontend, name='home'),
    
 ]
