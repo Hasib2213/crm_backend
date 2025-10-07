@@ -16,7 +16,7 @@ SECRET_KEY = os.environ.get('sct_key', 'unsafe-default-key')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 # Hosts
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['customer-relationship-uyzu.onrender.com', 'localhost', '127.0.0.1']
 
 # Custom user model
 AUTH_USER_MODEL = 'core.CustomUser'
@@ -50,8 +50,9 @@ MIDDLEWARE = [
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173", 
-     "https://crm-frontend-ten-alpha.vercel.app", # React frontend
+    "http://localhost:5173",
+   
+    "https://customerrelationship.vercel.app",
 ]
 
 # REST framework JWT
