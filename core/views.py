@@ -143,17 +143,18 @@ def signup(request):
     if CustomUser.objects.filter(email=email).exists():
         return Response({"error": "Email already exists."}, status=status.HTTP_400_BAD_REQUEST)
     
-    # Create inactive user
     user = CustomUser.objects.create_user(
         username=username,
         email=email,
         password=password,
-        is_active=False,  # User is inactive until verified
+        is_active=False,
         is_verified=False
     )
     
-    # Generate and send verification email
     token = generate_verification_token(email)
-    send_verification_email(email, token)
+    success, error = send_verification_email(email, token)
+    if not success:
+        user.delete()  # Rollback user creation if email fails
+        return Response({"error": f"Failed to send verification email: {error}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     return Response({"message": "User created. Please check your email to verify."}, status=status.HTTP_201_CREATED)
