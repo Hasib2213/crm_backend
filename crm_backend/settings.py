@@ -4,21 +4,21 @@ import dj_database_url
 from dotenv import load_dotenv
 from datetime import timedelta
 
-# Load environment variables
+# Load environment variables from .env
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ✅ Secret key
-SECRET_KEY = os.environ.get('secret_key', 'unsafe-default-key')
+# Secret key (match your .env variable)
+SECRET_KEY = os.environ.get('sct_key', 'unsafe-default-key')
 
-# ✅ Debug mode (convert string to boolean)
+# Debug mode
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-# ✅ Hosts (add Render domain when deployed)
+# Hosts
 ALLOWED_HOSTS = ['*']
 
-# ✅ Custom user model
+# Custom user model
 AUTH_USER_MODEL = 'core.CustomUser'
 
 # Installed apps
@@ -48,12 +48,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# ✅ Allow frontend
+# CORS settings
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # local React frontend
+    "http://localhost:5173",  # React frontend
 ]
 
-# REST Framework with JWT
+# REST framework JWT
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -80,7 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'crm_backend.wsgi.application'
 
-# ✅ Database configuration
+# Database (Neon / Render)
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL'),
@@ -89,7 +89,7 @@ DATABASES = {
     )
 }
 
-# Password validation
+# Password validators
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -97,23 +97,25 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
+# Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+# Static files
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# ✅ JWT Settings
+# JWT settings
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
 
-# ✅ Email configuration
+# Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
