@@ -68,8 +68,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'crm_backend.wsgi.application'
 
 
-
-# Update database configuration from $DATABASE_URL environment variable
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
