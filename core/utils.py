@@ -28,6 +28,7 @@ def send_verification_email(email, token):
             message=f"Click this link to verify your email: {verify_link}",
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[email],
+            fail_silently=False,
         )
     except Exception as e:
         return False, str(e)
