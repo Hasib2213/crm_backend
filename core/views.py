@@ -136,25 +136,19 @@ def signup(request):
     username = request.data.get('username')
     email = request.data.get('email')
     password = request.data.get('password')
-    
+
     if not all([username, email, password]):
         return Response({"error": "All fields are required."}, status=status.HTTP_400_BAD_REQUEST)
-    
+
     if CustomUser.objects.filter(email=email).exists():
         return Response({"error": "Email already exists."}, status=status.HTTP_400_BAD_REQUEST)
-    
+
     user = CustomUser.objects.create_user(
         username=username,
         email=email,
         password=password,
-        is_active=False,
-        is_verified=False
+        is_active=True,      # ✅ user is active immediately
+        is_verified=True     # ✅ user is verified automatically
     )
-    
-    token = generate_verification_token(email)
-    success, error = send_verification_email(email, token)
-    if not success:
-        user.delete()  # Rollback user creation if email fails
-        return Response({"error": f"Failed to send verification email: {error}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
-    return Response({"message": "User created. Please check your email to verify."}, status=status.HTTP_201_CREATED)
+
+    return Response({"message": "Signup successful! You can now login."}, status=status.HTTP_201_CREATED)
